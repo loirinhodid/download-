@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rover Client - Download Oficial</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base styles guaranteeing contrast and visibility */
+        html {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Dark Theme Default */
+        html.dark body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+
+        /* Light Theme Default */
+        html:not(.dark) body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        /* Glow effects */
+        .glow-background {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1000px;
+            height: 450px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        html.dark .glow-background {
+            background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.18) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 80%);
+        }
+
+        html:not(.dark) .glow-background {
+            background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.04) 50%, transparent 80%);
+        }
+
+        .card-box {
+            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        html.dark .card-box {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+        }
+
+        html.dark .card-box:hover {
+            border-color: #374151;
+        }
+
+        html:not(.dark) .card-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        html:not(.dark) .card-box:hover {
+            border-color: #cbd5e1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Ambient background glow -->
+    <div class="glow-background"></div>
+
+    <header class="w-full max-w-4xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-gamepad text-lg"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white leading-none">
+                    ROVER<span class="text-indigo-600 dark:text-indigo-400">CLIENT</span>
+                </span>
+                <span class="text-[10px] text-slate-500 font-medium tracking-wide">EDITION 2026</span>
+            </div>
+        </a>
+
+        <!-- Header Actions -->
+        <div class="flex items-center gap-3">
+            <!-- Theme Toggle -->
+            <button id="theme-btn" onclick="toggleTheme()" class="px-3 py-2 rounded-xl border flex items-center gap-2 text-xs font-semibold bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
+                <i id="theme-icon" class="fa-solid fa-moon text-indigo-500"></i>
+                <span id="theme-label" class="hidden sm:inline">Escuro</span>
+            </button>
+
+            <!-- Discord Button -->
+            <a href="https://discord.gg" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-900 dark:bg-slate-800 text-white hover:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold flex items-center gap-2 transition-colors shadow-sm">
+                <i class="fa-brands fa-discord text-indigo-400"></i>
+                <span>Comunidade</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-8 sm:py-12 flex flex-col items-center justify-center text-center relative z-10 space-y-8">
+
+        <!-- Windows Availability Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">
+            <i class="fa-brands fa-windows text-indigo-600 dark:text-indigo-400"></i>
+            <span>Exclusivo para Windows (10 e 11)</span>
+        </div>
+
+        <!-- Hero Title & Text -->
+        <div class="space-y-3 max-w-2xl">
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                Sua jogabilidade em outro nível.
+            </h1>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                Launcher otimizado com foco em alta performance, máxima fluidez de quadros e personalização completa da sua interface.
+            </p>
+        </div>
+
+        <!-- Download Action Card -->
+        <div class="w-full max-w-md card-box p-6 rounded-2xl space-y-4 text-center">
+            
+            <a href="https://github.com/loirinhodid/client/releases/latest/download/RoverClient-Setup-1.0.5.exe"
+               onclick="startDownload()"
+               class="w-full py-4 px-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-3 group">
+                <i class="fa-solid fa-download text-lg group-hover:bounce"></i>
+                <span>Baixar Rover Client (.exe)</span>
+            </a>
+
+            <div class="flex items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-check text-emerald-500"></i> Windows 64-bit
+                </span>
+                <span>•</span>
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-indigo-500"></i> Livre de vírus
+                </span>
+                <span>•</span>
+                <span>v1.0.5</span>
+            </div>
+        </div>
+
+        <!-- Key Features Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full text-left pt-4">
+            
+            <!-- Feature 1 -->
+            <div class="card-box p-5 rounded-2xl space-y-2">
+                <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-base">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white">Alto Desempenho</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Otimização de uso de RAM e CPU para garantir o máximo de FPS e menor latência.
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card-box p-5 rounded-2xl space-y-2">
+                <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-base">
+                    <i class="fa-solid fa-palette"></i>
+                </div>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white">Personalização Total</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Ajuste cores, temas, HUD, contador de FPS e ative cosméticos exclusivos com facilidade.
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="card-box p-5 rounded-2xl space-y-2">
+                <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-base">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white">Módulos Integrados</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Mods essenciais já integrados de fábrica, sem necessidade de instalações manuais.
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Simple Download Feedback Modal -->
+    <div id="download-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+        <div class="card-box max-w-sm w-full p-6 rounded-2xl text-center space-y-4 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-download"></i>
+            </div>
+
+            <div class="space-y-1">
+                <h3 class="font-bold text-slate-900 dark:text-white text-lg">Download iniciado!</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Verifique a barra de downloads do seu navegador para acompanhar o progresso.</p>
+            </div>
+
+            <button onclick="closeModal()" class="w-full py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition-colors">
+                Concluir
+            </button>
+        </div>
+    </div>
+
+    <footer class="w-full max-w-4xl mx-auto px-6 py-6 border-t border-slate-200 dark:border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2 relative z-10">
+        <div>
+            &copy; 2026 Rover Client. Todos os direitos reservados.
+        </div>
+        <div class="font-medium">
+            Desenvolvido para Windows (64-bit)
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Theme logic with state persistence
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-sun text-amber-500';
+                themeLabel.innerText = 'Claro';
+                localStorage.setItem('rover_theme', 'light');
+            } else {
+                html.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-moon text-indigo-400';
+                themeLabel.innerText = 'Escuro';
+                localStorage.setItem('rover_theme', 'dark');
+            }
+        }
+
+        // Initialize Theme preference on load
+        (function initTheme() {
+            const savedTheme = localStorage.getItem('rover_theme');
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+
+            if (savedTheme === 'light') {
+                html.classList.remove('dark');
+                if (themeIcon) themeIcon.className = 'fa-solid fa-sun text-amber-500';
+                if (themeLabel) themeLabel.innerText = 'Claro';
+            } else {
+                html.classList.add('dark');
+                if (themeIcon) themeIcon.className = 'fa-solid fa-moon text-indigo-400';
+                if (themeLabel) themeLabel.innerText = 'Escuro';
+            }
+        })();
+
+        // Aciona o modal informativo no momento em que o clique já disparou o download real (via href)
+        function startDownload() {
+            document.getElementById('download-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('download-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
