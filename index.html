@@ -100,6 +100,12 @@
         html:not(.dark) .card-box:hover {
             border-color: #cbd5e1;
         }
+
+        /* Skeleton state enquanto busca a versão mais recente */
+        #download-link.is-loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
@@ -157,12 +163,10 @@
 
         <!-- Download Action Card -->
         <div class="w-full max-w-md card-box p-6 rounded-2xl space-y-4 text-center">
-            
-            <a href="https://github.com/loirinhodid/client/releases/latest/download/RoverClient-Setup-1.0.5.exe"
-               onclick="startDownload()"
-               class="w-full py-4 px-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-3 group">
+
+            <a id="download-link" href="https://github.com/loirinhodid/client/releases/latest" class="is-loading w-full py-4 px-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-3 group">
                 <i class="fa-solid fa-download text-lg group-hover:animate-bounce"></i>
-                <span>Baixar Rover Client</span>
+                <span id="download-label">Buscando última versão...</span>
             </a>
 
             <div class="flex items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -174,7 +178,7 @@
                     <i class="fa-solid fa-arrows-rotate text-emerald-500"></i> Atualização automática
                 </span>
                 <span>•</span>
-                <span>v1.0.5</span>
+                <span id="version-label">verificando...</span>
             </div>
         </div>
 
@@ -295,6 +299,53 @@
         function closeModal() {
             document.getElementById('download-modal').classList.add('hidden');
         }
+
+        // ---------------------------------------------------------------
+        // Busca dinâmica da última release no GitHub.
+        // Em vez de apontar pra um arquivo com versão fixa no nome
+        // (ex: RoverClient-Setup-1.0.5.exe), que quebra assim que uma nova
+        // versão é publicada com nome diferente, consulta a API do GitHub
+        // e pega o asset .exe da release mais recente automaticamente.
+        // ---------------------------------------------------------------
+        const REPO_OWNER = 'loirinhodid';
+        const REPO_NAME = 'client';
+
+        async function loadLatestRelease() {
+            const link = document.getElementById('download-link');
+            const label = document.getElementById('download-label');
+            const versionLabel = document.getElementById('version-label');
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases/latest`);
+                if (!res.ok) throw new Error(`GitHub API respondeu ${res.status}`);
+                const release = await res.json();
+
+                // Procura o instalador .exe entre os assets da release
+                const asset = (release.assets || []).find(a => a.name.toLowerCase().endsWith('.exe'));
+
+                if (asset) {
+                    link.href = asset.browser_download_url;
+                    label.textContent = 'Baixar Rover Client';
+                    versionLabel.textContent = release.tag_name || 'última versão';
+                    link.onclick = startDownload;
+                } else {
+                    // Não achou .exe nos assets: cai pra página de releases do GitHub
+                    link.href = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest`;
+                    label.textContent = 'Ver última versão no GitHub';
+                    versionLabel.textContent = release.tag_name || 'ver no GitHub';
+                }
+            } catch (err) {
+                console.error('Falha ao buscar a última release:', err);
+                // Fallback: manda direto pra página de releases
+                link.href = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest`;
+                label.textContent = 'Ver última versão no GitHub';
+                versionLabel.textContent = 'ver no GitHub';
+            } finally {
+                link.classList.remove('is-loading');
+            }
+        }
+
+        loadLatestRelease();
     </script>
 </body>
 </html>
